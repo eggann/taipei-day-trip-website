@@ -11,7 +11,7 @@ def db_connection():
         port = 3306,
         user = "root",
         database = "travel",
-        password = "azaz1919",
+        password = "jiggjo9182",
         charset = "utf8"
         )
     except mysql.connector.Error as e:
@@ -53,7 +53,7 @@ def attractions():
                 'mrt': num[i][6],
                 'latitude': num[i][7],
                 'longitude': num[i][8],
-                'images': [images[0]]
+                'images': [images]
             }
             
         # 查下一頁
