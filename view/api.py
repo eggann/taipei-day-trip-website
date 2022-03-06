@@ -11,7 +11,7 @@ def db_connection():
         port = 3306,
         user = "root",
         database = "travel",
-        password = "jiggjo9182",
+        password = "azaz1919",
         charset = "utf8"
         )
     except mysql.connector.Error as e:
@@ -33,7 +33,7 @@ def attractions():
             FROM (SELECT id, name, category, description, address, transport, mrt, latitude, longitude, images
             FROM attractions 
             WHERE name like %s order by id)
-            as a LIMIT %s,%s
+            as a LIMIT %s,%s;
         """
         val = (keyword2, datafrom, dataNumPage)
         mydb = db_connection()
@@ -53,7 +53,7 @@ def attractions():
                 'mrt': num[i][6],
                 'latitude': num[i][7],
                 'longitude': num[i][8],
-                'images': [images[0]]
+                'images': [images]
             }
             
         # 查下一頁
@@ -62,7 +62,7 @@ def attractions():
             FROM (SELECT name 
             FROM attractions 
             WHERE name like %s ORDER BY id)
-            as a LIMIT %s OFFSET %s
+            as a LIMIT %s OFFSET %s;
         """
         val = (keyword2, datafrom+12, 1)
         mycursor.execute(sql, val)
@@ -80,3 +80,31 @@ def attractions():
             "error": True,
             "message": "伺服器錯誤"
         }, sort_keys = False), mimetype="application/json"), 500
+        
+@api.route("/api/attraction/<int:attractionId>")
+def attraction_id(attractionId):
+    sql = """
+        SELECT id, name, category, description, address, transport, mrt, latitude, longitude, images
+        FROM attractions WHERE id = %s;
+    """
+    val = (attractionId, )
+    mydb = db_connection()
+    mycursor = mydb.cursor()
+    mycursor.execute(sql, val)
+    num = mycursor.fetchall()
+    myresult = ['']
+    images = num[0][9].split(',')
+    myresult[0] = {
+        'id': num[0][0],
+        'name': num[0][1],
+        'category': num[0][2],
+        'description': num[0][3],
+        'address': num[0][4],
+        'transport': num[0][5],
+        'mrt': num[0][6],
+        'latitude': num[0][7],
+        'longitude': num[0][8],
+        'images': [images[0]]
+    }
+    mydb.close()
+    return {'data': myresult}
