@@ -6,7 +6,7 @@ def db_connection():
     mydb = None
     try:
         mydb = mysql.connector.connect(
-        host = "root",
+        host = "localhost",
         port = 3306,
         user = "root",
         database = "travel",
