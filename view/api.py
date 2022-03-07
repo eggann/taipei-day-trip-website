@@ -11,7 +11,7 @@ def db_connection():
         port = 3306,
         user = "root",
         database = "travel",
-        password = "azaz1919",
+        password = "jiggjo9182",
         charset = "utf8"
         )
     except mysql.connector.Error as e:
@@ -40,21 +40,48 @@ def attractions():
         mycursor = mydb.cursor()
         mycursor.execute(sql, val)
         num = mycursor.fetchall()
-        myresult = [''] * (len(num))
-        for i in range(0, len(num)):
-            images = num[i][9].split(',')
-            myresult[i] = {
-                'id': num[i][0],
-                'name': num[i][1],
-                'category': num[i][2],
-                'description': num[i][3],
-                'address': num[i][4],
-                'transport': num[i][5],
-                'mrt': num[i][6],
-                'latitude': num[i][7],
-                'longitude': num[i][8],
-                'images': [images]
+        myresult = []
+        for i in range(len(num)):
+            id = num[i][0]
+            name = num[i][1]
+            category = num[i][2]
+            description  = num[i][3]
+            address = num[i][4]
+            transport = num[i][5]
+            mrt = num[i][6]
+            latitude = num[i][7]
+            longitude = num[i][8]
+            images = num[i][9]
+            myresults = {
+                "id": id,
+                "name": name,
+                "category": category,
+                "description": description,
+                "address": address,
+                "transport": transport,
+                "mrt": mrt,
+                "latitude": latitude,
+                "longitude": longitude,
+                "images": images
             }
+            myresult.append(myresults)
+        
+        # 會在外層多出現[]
+        # myresult = [''] * (len(num))
+        # for i in range(0, len(num)):
+        #     images = num[i][9].split(',')
+        #     myresult[i] = {
+        #         'id': num[i][0],
+        #         'name': num[i][1],
+        #         'category': num[i][2],
+        #         'description': num[i][3],
+        #         'address': num[i][4],
+        #         'transport': num[i][5],
+        #         'mrt': num[i][6],
+        #         'latitude': num[i][7],
+        #         'longitude': num[i][8],
+        #         'images': [images]
+        #     }
             
         # 查下一頁
         sql = """
@@ -83,28 +110,62 @@ def attractions():
         
 @api.route("/api/attraction/<int:attractionId>")
 def attraction_id(attractionId):
-    sql = """
-        SELECT id, name, category, description, address, transport, mrt, latitude, longitude, images
-        FROM attractions WHERE id = %s;
-    """
-    val = (attractionId, )
-    mydb = db_connection()
-    mycursor = mydb.cursor()
-    mycursor.execute(sql, val)
-    num = mycursor.fetchall()
-    myresult = ['']
-    images = num[0][9].split(',')
-    myresult[0] = {
-        'id': num[0][0],
-        'name': num[0][1],
-        'category': num[0][2],
-        'description': num[0][3],
-        'address': num[0][4],
-        'transport': num[0][5],
-        'mrt': num[0][6],
-        'latitude': num[0][7],
-        'longitude': num[0][8],
-        'images': [images[0]]
-    }
-    mydb.close()
-    return {'data': myresult}
+    try:
+        sql = """
+            SELECT id, name, category, description, address, transport, mrt, latitude, longitude, images
+            FROM attractions WHERE id = %s;
+        """
+        val = (attractionId, )
+        mydb = db_connection()
+        mycursor = mydb.cursor()
+        mycursor.execute(sql, val)
+        num = mycursor.fetchone()
+        id = num[0]
+        name = num[1]
+        category = num[2]
+        description  = num[3]
+        address = num[4]
+        transport = num[5]
+        mrt = num[6]
+        latitude = num[7]
+        longitude = num[8]
+        images = num[9]
+        myresults = {
+                    "id": id,
+                    "name": name,
+                    "category": category,
+                    "description": description,
+                    "address": address,
+                    "transport": transport,
+                    "mrt": mrt,
+                    "latitude": latitude,
+                    "longitude": longitude,
+                    "images": images
+                }
+        
+        # 會在外層多出現[]
+        # num = mycursor.fetchall()
+        # myresult = ['']
+        # images = num[0][9].split(',')
+        # myresult[0] = {
+        #     'id': num[0][0],
+        #     'name': num[0][1],
+        #     'category': num[0][2],
+        #     'description': num[0][3],
+        #     'address': num[0][4],
+        #     'transport': num[0][5],
+        #     'mrt': num[0][6],
+        #     'latitude': num[0][7],
+        #     'longitude': num[0][8],
+        #     'images': [images]
+        # }
+        
+        mydb.close()
+        return Response(json.dumps({
+            'data': myresults
+        }, sort_keys = False), mimetype="application/json")
+    except:
+        return Response(json.dumps({
+            "error": True,
+            "message": "伺服器錯誤"
+        }, sort_keys = False), mimetype="application/json"), 500
