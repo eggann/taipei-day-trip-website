@@ -42,7 +42,7 @@ for i in information:
         my_suffixes = ("JPG", "PNG", "jpg", "png")
         if j.endswith(my_suffixes) != True  or  j == '' :
             continue
-        pic='http'+ i
+        pic='http'+ j
         pic_list.append(pic)
     pic_list = str(pic_list)
     
