@@ -18,6 +18,9 @@ def db_connection():
         print(e)
     return mydb
 
+# def stringToList(string):
+#     evalRes = eval(string.split(" "))
+#     return evalRes
     
 @api.route("/api/attractions", methods=['GET'])
 def attractions():
@@ -62,7 +65,7 @@ def attractions():
                 "mrt": mrt,
                 "latitude": latitude,
                 "longitude": longitude,
-                "images": images
+                "images": eval(images)
             }
             myresult.append(myresults)
         
@@ -140,7 +143,7 @@ def attraction_id(attractionId):
                     "mrt": mrt,
                     "latitude": latitude,
                     "longitude": longitude,
-                    "images": images
+                    "images": eval(images)
                 }
         
         # 會在外層多出現[]

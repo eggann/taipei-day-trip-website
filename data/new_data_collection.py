@@ -10,7 +10,7 @@ def db_connection():
         port = 3306,
         user = "root",
         database = "travel",
-        password = "jiggjo9182",
+        password = "azaz1919",
         charset = "utf8"
         )
     except mysql.connector.Error as e:
@@ -19,6 +19,10 @@ def db_connection():
 
 mydb = db_connection()
 mycursor = mydb.cursor()
+
+def stringToList(string):
+    listRes = list(string.split(" "))
+    return listRes
 
 data = open('taipei-attractions.json', 'r', encoding='utf-8').read()
 obj = json.loads(data)
@@ -42,7 +46,7 @@ for i in information:
         my_suffixes = ("JPG", "PNG", "jpg", "png")
         if j.endswith(my_suffixes) != True  or  j == '' :
             continue
-        pic='http'+ i
+        pic='http'+ j
         pic_list.append(pic)
     pic_list = str(pic_list)
     
