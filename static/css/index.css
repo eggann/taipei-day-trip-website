@@ -1,0 +1,108 @@
+@import url('https://fonts.googleapis.com/css?family=Noto+Sans+TC');
+
+* {
+    margin: 0;
+}
+
+body {
+    font-size: 20px;
+    width: 100%;
+    height: 100%;
+}
+
+.navigation {
+    margin:0px auto;
+    /* border: 1px solid blue; */
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 16px;
+    width: 1200px;
+    height: 54px;
+    background-color: rgb(255, 255, 255);
+    position:sticky;
+}
+.navigation--left {
+    font-weight: bolder;
+    color: rgb(36, 109, 128);
+}
+
+.navigation--right {
+    font-weight: 800;
+    font-size:15px;
+    color: rgba(41, 46, 47, 0.733);
+}
+
+.head {
+    width: auto;
+    height: 280px;
+    background-image: url(../css/img/welcome\ 1.png), linear-gradient(to right bottom, rgba(82, 143, 158, 0.575), rgb(36, 109, 128, 0.8));
+    background-repeat: no-repeat;
+    background-position:80% 50%;
+    display: flex;
+    align-items: center;
+}
+.head--left {
+    margin:0px auto;
+    /* border: 1px solid blue; */
+    width: 1200px;
+    height: 150px;
+    
+    display: grid;
+    grid-template-rows: 40px 40px 40px;
+}
+.text1 {
+    width: 100%;
+    text-align: left;
+    font-weight: bolder;
+    color:rgb(255, 255, 255);
+}
+.text2 {
+    width: 100%;
+    text-align: left;
+    font-weight: 700;
+    color:rgb(255, 255, 255);
+    font-size:15px;
+}
+.search {
+    width: 100%;
+    text-align: left;
+    display: flex;
+}
+.insert {
+    color:#757575;
+    font-weight: 700;
+    font-size: 16px;
+    line-height:13.3px;
+    padding: 15px;
+    height: 15px;
+    width: 390px;
+    border: 0;
+    border-radius: 5px 0 0 5px;
+}
+.button {
+    background-color: rgb(36, 109, 128);
+    height: 46px;
+    width: 60px;
+    border: 0;
+    border-radius: 0 5px 5px 0;
+    cursor:pointer;
+}
+.logo {
+    width: 35px;
+    height: 35px;
+}
+
+footer{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top:60px;
+    width:auto;
+    height: 50px;
+    padding:15px;
+    font-size:15px;
+    color:white;
+    background-color: #6e6e6e;
+    position:sticky;
+}
