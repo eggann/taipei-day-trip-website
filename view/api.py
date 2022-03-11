@@ -11,7 +11,7 @@ def db_connection():
         port = 3306,
         user = "root",
         database = "travel",
-        password = "azaz1919",
+        password = "jiggjo9182",
         charset = "utf8"
         )
     except mysql.connector.Error as e:
@@ -19,7 +19,7 @@ def db_connection():
     return mydb
 
 # def stringToList(string):
-#     evalRes = eval(string.split(" "))
+#     evalRes = eval(string)
 #     return evalRes
     
 @api.route("/api/attractions", methods=['GET'])
@@ -92,7 +92,7 @@ def attractions():
             FROM (SELECT name 
             FROM attractions 
             WHERE name like %s ORDER BY id)
-            as a LIMIT %s OFFSET %s;
+            as a LIMIT %s,%s;
         """
         val = (keyword2, datafrom+12, 1)
         mycursor.execute(sql, val)
