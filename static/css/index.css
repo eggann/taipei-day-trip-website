@@ -18,17 +18,13 @@ body {
     justify-content: space-between;
     padding: 0 16px;
     width: 1200px;
-    /* position: fixed; */
     height: 54px;
-    background-color: rgb(255, 255, 255);
-    position:sticky;
-    
+    background-color: rgb(255, 255, 255);   
 }
 .navigation--left {
     font-weight: bolder;
     color: rgb(36, 109, 128);
 }
-
 .navigation--right {
     font-weight: 800;
     font-size:15px;
@@ -38,9 +34,18 @@ body {
 .head {
     width: auto;
     height: 280px;
-    background-image: url(../css/img/welcome\ 1.png), linear-gradient(to right bottom, rgba(82, 143, 158, 0.575), rgb(36, 109, 128, 0.8));
-    background-repeat: no-repeat;
+    background-image: linear-gradient(to right bottom, rgba(82, 143, 158, 0.575), rgb(36, 109, 128, 0.8));
     background-position:80% 50%;
+    display: flex;
+    align-items: center;
+}
+.head2 {
+    margin:0px auto;
+    width: auto;
+    height: 280px;
+    background-image: url(../css/img/welcome\ 1.png);
+    background-repeat: no-repeat;
+    background-position:100% 50%;
     display: flex;
     align-items: center;
 }
@@ -170,4 +175,92 @@ footer{
     color:white;
     background-color: #6e6e6e;
     position:sticky;
+}
+
+@media(max-width: 1200px) {
+    .navigation {
+        width: 90%;
+        justify-content: space-between;
+    }
+    .head {
+        width: 1200px;
+        background-size: 100%;
+        background-position: right bottom;
+    }
+    .head2 {
+        width: 1200px;
+        background-size: 50%;
+        background-position: 90% 50%;
+    }
+    .head--left {
+        width: 90%;
+        align-items: flex-start;
+    }
+    .text1 {
+        width: 80%;
+    }
+    .text2 {
+        width: 80%;
+    }
+    .search {
+        width: 80%;
+    }
+    .content{
+        margin: 0 auto;
+        grid-template-columns: repeat(2,1fr);
+        width: 70%;
+    }
+    .all {
+        width: 100%;
+        height: auto;
+    }
+    .img {
+        width: inherit;
+        height: auto;
+        aspect-ratio: 16/11;
+    }
+}
+
+@media(max-width: 600px) {
+    .navigation {
+        width: auto;
+        justify-content: space-between;
+    }
+    .head {
+        width: 600px;
+        background-size: 100%;
+        background-position: right bottom;
+    }
+    .head2 {
+        width: 600px;
+        background-size: 50%;
+        background-position: 60% 100%;
+    }
+    .head--left {
+        width: 90%;
+        align-items: flex-start;
+    }
+    .text1 {
+        width: 100%;
+    }
+    .text2 {
+        width: 100%;
+    }
+    .search {
+        width: 50%;
+    }
+    .content {
+        margin: 0 auto;
+        grid-template-columns: repeat(1,1fr);
+        width: 60%;
+    }
+    .all {
+        width: 100%;
+        height: auto;
+    }
+    .img {
+        width: inherit;
+        height: auto;
+        aspect-ratio: 16/11;
+    }
 }

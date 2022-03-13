@@ -1,55 +1,25 @@
-let insert = document.getElementsByClassName("insert").value;
+let keyword = '';
 let page = 0;
 let isFetchingMore = false;
 let noData = false;
 
-function keyword(){
+function removeMainHtml() {
   const main = document.querySelector("main");
-  let input = document.getElementById("ins").value;
-  main.innerHTML = '';
-  let divOuter= document.createElement("div");
-  divOuter.id="siteOuter";
-  divOuter.className="siteOuter";
-  main.appendChild(divOuter);
-  let currentPage=0;
-  let src = `http://localhost:3000/api/attractions?page=${currentPage}&keyword=${insert}`;
-  fetch(src).then(res => {return res.json();
-  }).then(result => {
-    if(result.data != null) {
-      main.innerHTML = updateHtml(result);
-    }
-    else {
-      main.innerHTML = `找不到${insert}的相關景點唷`;
-    }
-  })
+  main.childNodes.forEach(child => {
+    main.removeChild(child);
+  });
 }
 
-// function keyword() {
-//   let main = document.querySelector("main");
-//   main.innerHTML = '';
-//   let divOuter= document.createElement("div");
-//   const src = `http://localhost:3000/api/attractions?page=${page}&keyword=${insert}`;
-//   fetch(src).then((res) => {
-//     return res.json();
-//   }).then(result => {
-//     if(result.error){
-//       divOuter.innerHTML = `找不到${insert}的相關景點唷`;
-//       // console.log(insert);
-//     }
-//     else {
-//       updateHtml(result);
-//       // console.log(insert);
-//     }
-//   })
-// };
-
+// call attractions api
 async function attractions() {
   if (isFetchingMore || noData) return null;
 
   console.log("fetching!");
   isFetchingMore = true;
 
-  const src = `http://localhost:3000/api/attractions?page=${page}`;
+  const src = `/api/attractions?page=${page}${
+    keyword !== '' ? `&keyword=${keyword}` : ''
+  }`;
 
   const response = await fetch(src).then((res) => {
     page += 1;
@@ -60,6 +30,14 @@ async function attractions() {
   if (response.data.length === 0) {
     noData = true;
   }
+  
+  if (
+    noData && // 1. 當下沒有資料
+    keyword !== '' && // 2. 有關鍵字
+    document.querySelectorAll('.all').length === 0 // 3. content 裡面原本就無資料 (不只是單單這一個 page 沒有資料)
+  ) {
+    document.querySelector('main').innerHTML = `搜尋不到 ${keyword} 的相關資料。`
+   }
 
   return response;
 }
@@ -145,8 +123,22 @@ function createObserver() {
 
 async function main() {
   const observer = createObserver();
-
   observer.observe(document.querySelector("footer"));
+
+  const inputElement = document.getElementById('ins');
+  inputElement.addEventListener('input', (event) => {
+    keyword = event.target.value;
+  });
+
+  const submitButtonElement = document.getElementById("but");
+  submitButtonElement.addEventListener("click", async function(event){
+    event.preventDefault();
+    removeMainHtml();
+    page = 0;
+    noData = false;
+    const response = await attractions();
+    updateHtml(response);
+  });
 }
 
 main();
