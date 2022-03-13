@@ -21,7 +21,7 @@ body {
     /* position: fixed; */
     height: 54px;
     background-color: rgb(255, 255, 255);
-    /* position:sticky; */
+    position:sticky;
     
 }
 .navigation--left {
@@ -109,16 +109,17 @@ body {
 .all {
     border: 1px solid rgba(56, 56, 56, 0.322);
     width: 100%;
+    height: 290px;
     display: grid;
     grid-template-rows: 1fr 100px;
     border-radius: 5px 5px 5px 5px;
-    /* grid-template-columns: 1fr 100px; */
 }
 .img{
-    width: 100%;
+    max-width: 100%;
     height: 100%;
     object-fit: cover;
     border-radius: 5px 5px 0px 0px;
+    aspect-ratio:16/9; /* 讓圖片長寬比一樣 */
 }
 .title {
     background-color: rgb(255, 255, 255);
