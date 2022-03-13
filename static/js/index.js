@@ -1,27 +1,26 @@
-let insert = document.getElementsByClassName("insert").value;
+let keyword = '';
 let page = 0;
 let isFetchingMore = false;
 let noData = false;
 
-function keyword(){
+async function onSearch() {
+  // 如果沒有輸入字，不要發 api
+  if (!keyword) return;
+
   const main = document.querySelector("main");
-  let input = document.getElementById("ins").value;
   main.innerHTML = '';
   let divOuter= document.createElement("div");
   divOuter.id="siteOuter";
   divOuter.className="siteOuter";
   main.appendChild(divOuter);
-  let currentPage=0;
-  let src = `http://localhost:3000/api/attractions?page=${currentPage}&keyword=${insert}`;
-  fetch(src).then(res => {return res.json();
-  }).then(result => {
-    if(result.data != null) {
-      main.innerHTML = updateHtml(result);
-    }
-    else {
-      main.innerHTML = `找不到${insert}的相關景點唷`;
-    }
-  })
+
+  const src = `http://localhost:3000/api/attractions?page=${0}&keyword=${keyword}`;
+
+  const response = await fetch(src).then((res) => {
+    return res.json();
+  });
+
+  updateHtml(response);
 }
 
 // function keyword() {
@@ -147,6 +146,9 @@ async function main() {
   const observer = createObserver();
 
   observer.observe(document.querySelector("footer"));
+
+  const input = document.getElementById('ins');
+  input.addEventListener('input', (e) => keyword = e.target.value);
 }
 
 main();
