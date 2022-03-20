@@ -55,6 +55,9 @@ function updateHtml(response) {
   }
 
   Array.from(response.data).forEach((_, index) => {
+
+    let ID = response.data[index]["id"];
+
     /**
      * all section
      */
@@ -71,11 +74,18 @@ function updateHtml(response) {
     img.setAttribute("src", myString);
     img.setAttribute("class", "img");
 
+    // const spotID = document.createElement('a');
+    // spotID.href = "http://localhost:3000/attraction/" + ID;
+    // img.appendChild(spotID);
+    // spotID.setAttribute("href", spotID.href);
+    // spotID.setAttribute("class", "spotID");
+
     /**
      * name section
      */
-    const title = document.createElement("div");
+    const title = document.createElement("a");
     all.appendChild(title);
+    title.href = "http://localhost:3000/attraction/" + ID;
     title.setAttribute("class", "title");
 
     const nameString = response.data[index]["name"];
