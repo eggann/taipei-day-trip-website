@@ -86,7 +86,7 @@ function updateHtml(response) {
     const title = document.createElement("a");
     all.appendChild(title);
     title.href = "/attraction/" + ID;
-    title.setAttribute("class", "link");
+    title.setAttribute("class", "title");
 
     const nameString = response.data[index]["name"];
     const name = document.createElement("div");
