@@ -125,23 +125,6 @@ def attraction_id(attractionId):
                     "images": eval(images)
                 }
         
-        # 會在外層多出現[]
-        # num = mycursor.fetchall()
-        # myresult = ['']
-        # images = num[0][9].split(',')
-        # myresult[0] = {
-        #     'id': num[0][0],
-        #     'name': num[0][1],
-        #     'category': num[0][2],
-        #     'description': num[0][3],
-        #     'address': num[0][4],
-        #     'transport': num[0][5],
-        #     'mrt': num[0][6],
-        #     'latitude': num[0][7],
-        #     'longitude': num[0][8],
-        #     'images': [images]
-        # }
-        
         mydb.close()
         return Response(json.dumps({
             'data': myresults
