@@ -85,8 +85,8 @@ function updateHtml(response) {
      */
     const title = document.createElement("a");
     all.appendChild(title);
-    title.href = "http://localhost:3000/attraction/" + ID;
-    title.setAttribute("class", "title");
+    title.href = "/attraction/" + ID;
+    title.setAttribute("class", "link");
 
     const nameString = response.data[index]["name"];
     const name = document.createElement("div");
