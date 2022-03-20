@@ -1,5 +1,5 @@
 let path = location.pathname;
-let url = '/api' + path;
+let url = '/api/attraction/' + path;
 
 async function attraction() {
     const response = await fetch(url).then((res) => {
