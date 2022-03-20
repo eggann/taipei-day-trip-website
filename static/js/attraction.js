@@ -1,5 +1,5 @@
 let path = location.pathname;
-let url = 'http://localhost:3000/api' + path;
+let url = '/api' + path;
 
 async function attraction() {
     const response = await fetch(url).then((res) => {
@@ -10,81 +10,74 @@ async function attraction() {
 
 async function dotNum(response) {
     const dots = document.querySelector(".dots");
-    let dot = document.createElement("li");
-    let dotNumber = response.data.images.length;
-    for (i=0; i<dotNumber; i++) {
-        dot.setAttribute("class", "dot");
-        dots.appendChild(dot.cloneNode(true));
-    }
+    const dotNumber = response.data.images.length;
+    Array.from(Array(dotNumber)).forEach((_, index) => {
+        const dot = document.createElement("li");
+        dot.classList.add('dot');
+
+        if (index === 0) dot.classList.add('dot--selected');
+
+        dots.appendChild(dot);
+    });
 }
 
 function slide() {
     let slidePosition = 0;
-    let slides = document.getElementsByClassName('image');
-    let totalSlides = slides.length;
-    // console.log(totalSlides);
+    const slides = document.getElementsByClassName('image');
+    const dots = document.getElementsByClassName('dot');
+    const slidesLength = slides.length;
 
     document.getElementById("right-btn").addEventListener("click", function() {
-        moveToNextSlide();
+        updateSlidePosition(true);
     });
     document.getElementById("left-btn").addEventListener("click", function() {
-        moveToPrevSlide();
+        updateSlidePosition(false);
     });
 
-    function updateSlidePosition() {
-        for (let slide of slides) {
-            slide.classList.remove('image--visible');
-            slide.classList.add('image--hidden');
-        }
-        slides[slidePosition].classList.add('image--visible');
-    }
+    function updateSlidePosition(isNext = false) {
+        const currentDisplay = slides[slidePosition];
+        const currentDot = dots[slidePosition];
+        currentDisplay.classList.remove('image--visible');
+        currentDot.classList.remove('dot--selected');
 
-    function moveToNextSlide() {
-        if (slidePosition === totalSlides -1) {
-            slidePosition = 0;
-        }else {
-            slidePosition++;
+        switch (isNext) {
+            case true:
+                slidePosition = slidePosition === slidesLength - 1
+                  ? 0
+                  : slidePosition + 1;
+                break;
+            case false:
+                slidePosition = slidePosition === 0
+                  ? slidesLength - 1
+                  : slidePosition - 1;
+                break;
+            default:
+                break;
         }
-        updateSlidePosition();
-    }
-    function moveToPrevSlide() {
-        if (slidePosition === 0) {
-            slidePosition = totalSlides -1;
-        } else {
-            slidePosition--;
-        }
-        updateSlidePosition();
+
+        slides[slidePosition].classList.add('image--visible');
+        dots[slidePosition].classList.add('dot--selected');
     }
 }
 
 
 function updateHtml(response) {
     const main = document.querySelector("main");
-    let content = document.querySelector(".content");
-    // content = document.createElement("div");
-    // content.setAttribute("class", "content");
-    // main.appendChild(content);
+    const images = document.getElementById("images");
 
     /**
      * img section
      */
-    //  const myString = response.data["images"][0];
-    //  const img = document.querySelector("img");
-    // //  content.appendChild(img);
-    //  img.setAttribute("src", myString);
-    // //  img.setAttribute("class", "img");
+     const attractionImages = response.data.images;
+     Array.from(attractionImages).forEach((image, index) => {
+        const img = document.createElement("img");
+        img.setAttribute("src", image);
+        img.classList.add('image');
 
-     const myString = response.data.images;
-     const img = document.createElement("img");
-     let imgNumber = response.data.images.length;
-     for (i=0; i<imgNumber; i++) {
-        img.setAttribute("src", myString[i]);
-        img.setAttribute("class", `image`);
-        img.setAttribute("id", 'imgs');
-        cover.appendChild(img.cloneNode(true));
-    }
+        if (index === 0) img.classList.add('image--visible');
 
-    
+        images.appendChild(img);
+     });
 
     /**
      * name section
