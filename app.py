@@ -1,3 +1,4 @@
+from distutils.log import debug
 from flask import *
 from view.api import api
 

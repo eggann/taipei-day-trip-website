@@ -17,10 +17,6 @@ def db_connection():
     except mysql.connector.Error as e:
         print(e)
     return mydb
-
-# def stringToList(string):
-#     evalRes = eval(string)
-#     return evalRes
     
 @api.route("/api/attractions", methods=['GET'])
 def attractions():
@@ -68,23 +64,6 @@ def attractions():
                 "images": eval(images)
             }
             myresult.append(myresults)
-        
-        # 會在外層多出現[]
-        # myresult = [''] * (len(num))
-        # for i in range(0, len(num)):
-        #     images = num[i][9].split(',')
-        #     myresult[i] = {
-        #         'id': num[i][0],
-        #         'name': num[i][1],
-        #         'category': num[i][2],
-        #         'description': num[i][3],
-        #         'address': num[i][4],
-        #         'transport': num[i][5],
-        #         'mrt': num[i][6],
-        #         'latitude': num[i][7],
-        #         'longitude': num[i][8],
-        #         'images': [images]
-        #     }
             
         # 查下一頁
         sql = """
