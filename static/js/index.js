@@ -4,18 +4,32 @@ let isFetchingMore = false;
 let noData = false;
 let dialog;
 let hidden;
+let dialog2;
 
 window.onload = function() {
   dialog = document.getElementById("dialog");
   hidden = document.getElementById("hidden");
+  dialog2 = document.getElementById("dialog2");
 };
 function showDialog() {
   dialog.style.display = "block";
   hidden.style.display = "block";
+  dialog2.style.display = "none";
 }
 
 function closeDialog() {
   dialog.style.display = "none";
+  hidden.style.display = "none";
+}
+
+function showDialog2() {
+  dialog2.style.display = "block";
+  hidden.style.display = "block";
+  dialog.style.display = "none";
+}
+
+function closeDialog2() {
+  dialog2.style.display = "none";
   hidden.style.display = "none";
 }
 
@@ -33,7 +47,7 @@ async function attractions() {
   console.log("fetching!");
   isFetchingMore = true;
 
-  const src = `http://localhost:3000/api/attractions?page=${page}${
+  const src = `/api/attractions?page=${page}${
     keyword !== '' ? `&keyword=${keyword}` : ''
   }`;
 

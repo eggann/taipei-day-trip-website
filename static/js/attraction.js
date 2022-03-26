@@ -1,5 +1,5 @@
 let path = location.pathname;
-let url = 'http://localhost:3000/api/' + path;
+let url = '/api/' + path;
 
 async function attraction() {
     const response = await fetch(url).then((res) => {
