@@ -94,7 +94,7 @@ button, input[type="reset"]  {
     display: grid;
     grid-template-rows: repeat(3, 1fr);
 }
-.dialog--email {
+#dialog--email {
     margin:0px auto;
     color:#757575;
     font-weight: 700;
@@ -105,7 +105,7 @@ button, input[type="reset"]  {
     border: 1px solid #75757560;
     border-radius: 5px 5px 5px 5px;
 }
-.dialog--password {
+#dialog--password {
     margin:0px auto;
     color:#757575;
     font-weight: 700;
@@ -117,7 +117,7 @@ button, input[type="reset"]  {
     border-radius: 5px 5px 5px 5px;
 }
 
-.dialog--button {
+#dialog--button {
     background-color: rgb(36, 109, 128);
     color: rgb(255, 255, 255);
     border-radius: 5px 5px 5px 5px;
@@ -127,6 +127,9 @@ button, input[type="reset"]  {
     height: 37px;
     font-size: 14px;
     font-weight: bold;
+}
+#error1--message {
+    display: none;
 }
 .dialog--span {
     display: flex;
@@ -180,7 +183,7 @@ button, input[type="reset"]  {
     display: grid;
     grid-template-rows: repeat(3, 1fr);
 }
-.dialog2--name {
+#dialog2--name {
     margin:0px auto;
     color:#757575;
     font-weight: 700;
@@ -191,7 +194,7 @@ button, input[type="reset"]  {
     border: 1px solid #75757560;
     border-radius: 5px 5px 5px 5px;
 }
-.dialog2--email {
+#dialog2--email {
     margin:0px auto;
     color:#757575;
     font-weight: 700;
@@ -202,7 +205,7 @@ button, input[type="reset"]  {
     border: 1px solid #75757560;
     border-radius: 5px 5px 5px 5px;
 }
-.dialog2--password {
+#dialog2--password {
     margin:0px auto;
     color:#757575;
     font-weight: 700;
@@ -214,7 +217,7 @@ button, input[type="reset"]  {
     border-radius: 5px 5px 5px 5px;
 }
 
-.dialog2--button {
+#dialog2--button {
     background-color: rgb(36, 109, 128);
     color: rgb(255, 255, 255);
     border-radius: 5px 5px 5px 5px;
@@ -225,7 +228,11 @@ button, input[type="reset"]  {
     font-size: 14px;
     font-weight: bold;
 }
-.error2--message {
+#error2--message {
+    display: none;
+    text-align: center;
+}
+#success2--message {
     display: none;
 }
 .dialog2--span {
